@@ -1,0 +1,7 @@
+Así es como se compila
+g++ yolodemo.cpp -o yolodemo -ldarkhelp -ldarknet $(pkg-config --libs opencv4)
+
+Dependiendo de que OpenCV tengas instalado tendras que cambiar entre opencv4 y opencv.
+También tienes que tener instalado darkhelp y la biblioteca de darknet. Por favor
+descarga yolov4.weights de https://github.com/AlexeyAB/darknet/releases/tag/yolov4 
+y ponlo en la carpeta datos para poder correr el programa.
