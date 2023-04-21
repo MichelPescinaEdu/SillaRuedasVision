@@ -22,8 +22,8 @@ std::vector<std::string> get_all_names(std::string path)
 
 int main(int argc, char** argv)
 {
-    std::string directory = "Yolo_V4_Results";
-    std::string datasetDir = "../dataset_cuevas_redux";
+    std::string directory = "Yolo_V7_Results";
+    std::string datasetDir = "dataset_cuevas_redux";
     int maxScenes = 3;
     int maxImages;
     std::vector<std::string> cameraNames;
@@ -34,8 +34,8 @@ int main(int argc, char** argv)
     clock_t start, end, sum = 0;
     int total_pred = 0;
 
-    std::string config_file = "datos/yolov4.cfg";
-    std::string weights_file = "datos/yolov4.weights";
+    std::string config_file = "datos/yolov7.cfg";
+    std::string weights_file = "datos/yolov7.weights";
     std::string names_file = "datos/coco.names";
 
     std::cout << "Cargando nombre de las clases...\n";

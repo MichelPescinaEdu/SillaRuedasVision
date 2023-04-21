@@ -91,6 +91,7 @@ function AP = averagePrec(CIoU, IoUthresh, minConf)
   endif
   
   %Graficar solo los puntos diferentes de 0
+  %{
   x=0;
   y=0;
   for i = 1 : size(Matrix,2)
@@ -101,6 +102,7 @@ function AP = averagePrec(CIoU, IoUthresh, minConf)
   endfor
   
   plot(x,y);
+  %}
   
   %Intergación por el método del trapecio  I = (b-a)( (f(a) + f(b)) / 2 )
   i = 1;

@@ -6,10 +6,15 @@ minConf = 0.3;
 
 count = 1;
 mAP = 0;
-directory = 'Yolo_V4_IoU'
-camera = 'Realsense';
+directory = 'Yolo_V7_IoU'
+mAPdirectory = 'Yolo_V7_mAP'
+cameras = [
+  'Realsense',
+  'iDS',
+  'PerfectChoice'
+  ];
 extension = '.csv';
-total_classes = 0
+total_classes = 0;
 
 %Matriz de objetos
 objects = [
@@ -93,27 +98,43 @@ objects = [
     'teddy bear',
     'hair drier',
     'toothbrush'
-          ];
+          ];         
 
-mAPaccum=0;          
-          
-for i = 1 : 80
-  direccion = strcat(directory,'\',camera,'\',objects(i,:),extension);
-  disp(direccion);
-  if isfile(direccion)
-    fprintf('Object: %s\n',objects(i,:));
-    total_classes += 1;
-    data = csvread(direccion);
-    data = data(1:end,:)';
-    AP = averagePrec(data, IoUthresh, minConf)
-    mAPaccum = mAPaccum + AP;
+mAPaccum=0; 
+
+for camIndex = 1 : 3
+  mAPfile = strcat(mAPdirectory,'\',cameras(camIndex,:),'.txt');
+  fid = fopen (mAPfile, "w");
+  printf("\n\n\n ---------%s------------", mAPfile);
+  for threshIndex = 0 : 9
+    mAPaccum=0; 
+    total_classes = 0;
+    IoUthresh = 0.5 + (threshIndex * 0.05);
+    printf("THRESHOLD: %f\n\n", IoUthresh);
+    for i = 1 : 80
+      direccion = strcat(directory,'\',cameras(camIndex,:),'\',objects(i,:),extension);
+      disp(direccion);
+      if isfile(direccion)
+        fprintf('Object: %s\n',objects(i,:));
+        total_classes += 1;
+        data = csvread(direccion);
+        data = data(1:end,:)';
+        AP = averagePrec(data, IoUthresh, minConf)
+        mAPaccum = mAPaccum + AP;
+        disp(' ');
+        disp(' ');
+        disp(' ');
+      end
+    endfor
+    mAP = mAPaccum/total_classes
+    fprintf(fid,"%f,%f\n", IoUthresh, mAP);
     disp(' ');
     disp(' ');
     disp(' ');
-  end
+  endfor
+  fclose(fid);
 endfor
 
-mAP = mAPaccum/total_classes
 
 
 %{

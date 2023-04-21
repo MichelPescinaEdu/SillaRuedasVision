@@ -4,7 +4,7 @@ import pandas as pd
 
 groundtruthDir = 'GroundTruth'
 predictDir = 'Yolo_V4_Results'
-IoU_dir = 'Yolo_V4_IoU'
+IoU_dir = 'Test'
 cameras = ['iDS', 'PerfectChoice', 'Realsense']
 maxScenes = 3
 maxImages = 4
