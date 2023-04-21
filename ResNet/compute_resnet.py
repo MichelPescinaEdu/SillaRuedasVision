@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+import time
 from typing import List, Tuple
 from resnet import ResNet50
 from custom_types import Prediction
@@ -9,6 +10,8 @@ cameras = ['iDS', 'PerfectChoice', 'Realsense']
 resultDir = 'ResNet_Results'
 
 resnet = ResNet50()
+totalTime = 0
+totalPredictions = 0
 
 def findPred(preds: List[Prediction], name: str) -> List[Prediction]:
     predsFound: List[Prediction] = [] 
@@ -49,7 +52,12 @@ for camera in cameras:
         print(sceneImage)
         currentImageCV = cv2.imread(currentImage)
 
+        start = time.time()
         predictions = resnet.predict(currentImageCV)
+        end = time.time()
+        totalTime += end - start
+        totalPredictions += 1
+
         imagePredicted = drawPreds(currentImageCV, predictions)
 
         resultImageFile = f'./{resultDir}/{camera}/{sceneImage}.jpg'
@@ -58,3 +66,4 @@ for camera in cameras:
         resultfile = open(f'./{resultDir}/{camera}/{sceneImage}.txt', 'w')
         resultfile.writelines(formatPredictions(predictions))
         resultfile.close()
+print("Total time: "+totalTime/totalPredictions+"s")
