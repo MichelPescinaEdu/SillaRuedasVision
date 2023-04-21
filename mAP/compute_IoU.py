@@ -3,8 +3,8 @@ import cv2
 import pandas as pd
 
 groundtruthDir = 'GroundTruth'
-predictDir = 'Yolo_V4_Results'
-IoU_dir = 'Test'
+predictDir = 'ResNet/ResNet_Results'
+IoU_dir = 'ResNet/ResNet_IoU'
 cameras = ['iDS', 'PerfectChoice', 'Realsense']
 maxScenes = 3
 maxImages = 4

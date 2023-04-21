@@ -6,8 +6,8 @@ minConf = 0.3;
 
 count = 1;
 mAP = 0;
-directory = 'Yolo_V7_IoU'
-mAPdirectory = 'Yolo_V7_mAP'
+directory = 'Yolo_V7/Yolo_V7_IoU'
+mAPdirectory = 'Yolo_V7/Yolo_V7_mAP'
 cameras = [
   'Realsense',
   'iDS',
