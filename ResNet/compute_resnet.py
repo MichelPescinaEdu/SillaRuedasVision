@@ -66,4 +66,4 @@ for camera in cameras:
         resultfile = open(f'./{resultDir}/{camera}/{sceneImage}.txt', 'w')
         resultfile.writelines(formatPredictions(predictions))
         resultfile.close()
-print("Total time: "+totalTime/totalPredictions+"s")
+print(f"Total time: {totalTime/totalPredictions}s")
