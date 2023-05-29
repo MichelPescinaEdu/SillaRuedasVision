@@ -1,2 +1,2 @@
 # Proyecto Silla de Ruedas Inteligente - Módulo de visión computacional
-Hola
+El proyecto de Silla de Ruedas Inteleigente, módulo de visión computacional pertene a una familia de proyectos que tienen el objetivo de desarrollar una silla de ruedas autonoma utilizando conocimientos de inteligencia artificial, robótica y sitemas embebidos. Actualmente ya se han desarrollado el modulo de navegación y el sistema embebido, actualmente está en desarrollo la sección de visión computacional y es la que contiene este repositorio.
