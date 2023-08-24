@@ -15,11 +15,14 @@ for camera in cameras:
         if sceneID == 3:
             maxImages = 3
         for imageID in range(1, maxImages + 1):
+            # Creates strings to the location of ground truth bboxes, prediction bboxes and output path.
             ground_path = groundtruthDir+'/'+camera+'/'+'escena'+str(sceneID)+'_'+str(imageID)+'.txt'
             pred_path = predictDir+'/'+camera+'/'+'escena'+str(sceneID)+'_'+str(imageID)+'.txt'
             IoU_path = IoU_dir + '/' + camera
+            # Loads bounding boxes
             bboxes_ground = iou.load_bounding_boxes(ground_path)
             bboxes_pred = iou.load_bounding_boxes(pred_path)
+            # Computes IoU of current image and saves results
             IoU_list, bboxes_inter = iou.get_IoU_all_predictions(bboxes_ground, bboxes_pred)
             iou.save_IoU_data(IoU_list, IoU_path, 'a')
 

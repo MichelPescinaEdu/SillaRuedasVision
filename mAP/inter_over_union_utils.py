@@ -1,15 +1,42 @@
 import pandas as pd
 import cv2
 
-# The bounding boxes must be in a csv file where the columns are:
-# label, confidence, xini, yini, xfin, yfin
 def load_bounding_boxes(path):
+    '''Loads prediction bounding boxes of a specific class from an csv file.
+
+    Loads prediction bounding boxes of a specific class from an csv formated file
+    (can be a .txt file, just needs to be formated), columns must be:\n
+    label(string), confidence (float), X_start(int), Y_start(int), X_end(int), Y_end(int)
+
+    Args:
+        path (str): path to file.
+
+    Returns:
+        Dataframe: a dataframe where each row is a prediction and columns are
+        label, conf, xini, yini, xfin, yfin.
+    '''
+
     bboxes = pd.read_csv(path, header=None, names=['label','conf','xini','yini','xfin','yfin'])
     return bboxes
 
-# Saves the IoU data in a csv file for each class where the columns are:
-# confidence, IoU
-def save_IoU_data(IoU_list, directory, op):
+
+def save_IoU_data(IoU_list, directory, op = 'a'):
+    '''Saves the IoU values in the corresponding csv file for each class.
+
+    Saves the Intersection over Union values of all predictions of an image, each prediction has
+    a class label, thus each one of the IoU values computed will be saved inside a csv file
+    correspondant to the class label of the prediction. The columns inside csv files are:\n
+    confidence (float), IoU (float).
+
+    Args:
+        IoU_list (List[(str, float, float)]): list with computed IoU values for each one of the predictions of an image.
+        directory (str): output directory where csv files will be saved.
+        op (str): string indicating how each file is going to be accesed, default is append ('p').
+
+    Returns:
+        None
+    '''
+
     for row in IoU_list:
         with open(directory+'/'+row[0]+'.csv', op) as file:
             file.write(f'{row[1]},{row[2]:.9f}\n')
@@ -78,6 +105,19 @@ def union_area(bbox_pred, bbox_ground, inter):
 
 
 def get_IoU_all_predictions(bboxes_ground, bboxes_pred):
+    '''Computes Intersection over Union for all predictions of an image.
+
+    Args:
+        bboxes_ground (dataframe): bounding boxes of the ground truth image in a pandas dataframe.
+        bboxes_pred (dataframe): bounding boxes of the prediction image in a pandas dataframe.
+
+    Returns:
+        A tuple containing, respectively, a list of tuples which carry a string (label),
+        a float (confidence) and another float (IoU value); and a list of dictionaries
+        holding the coordinates of each bounding box, each dictionary contains four integers
+        (xini, yini, xfin, yfin).
+    '''
+
     ground_queue = bboxes_ground.to_dict('records')
     pred_queue = bboxes_pred.to_dict('records')
     IoU_list = []

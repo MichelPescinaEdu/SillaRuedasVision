@@ -21,7 +21,7 @@ data = {'IoU Threshold':[0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95]}
 mAP = pd.DataFrame(data)
 all_mAP = pd.DataFrame(data)
 
-# miau
+# Draws mAP plots for each model individually and all of them at the same time.
 for i in range(0, len(mAPdir)):
     mAP = pd.DataFrame(data)
     for camera in cameras:
