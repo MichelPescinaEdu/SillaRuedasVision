@@ -23,7 +23,7 @@ std::vector<std::string> get_all_names(std::string path)
 int main(int argc, char** argv)
 {
     std::string directory = "Yolo_V7_Results";
-    std::string datasetDir = "dataset_cuevas_redux";
+    std::string datasetDir = "../../../indoors_dataset";
     int maxScenes = 3;
     int maxImages;
     std::vector<std::string> cameraNames;
