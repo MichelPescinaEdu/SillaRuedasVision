@@ -1,11 +1,12 @@
 import cv2
 
-img = cv2.imread('Images/kite.jpg')
 
-with open('coco.names', 'r') as f:
+img = cv2.imread('kite.jpg')
+
+with open('Dataset.names', 'r') as f:
     classes = f.read().splitlines()
 
-net = cv2.dnn.readNetFromDarknet('yolov4-tiny.cfg', 'yolov4-tiny.weights')
+net = cv2.dnn.readNetFromDarknet('Dataset.cfg', 'YOLO7_tiny_trained_10000i.weights')
 
 model = cv2.dnn_DetectionModel(net)
 model.setInputParams(scale=1 / 255, size=(416, 416), swapRB=True)
@@ -43,6 +44,9 @@ def video():
     # create the `VideoWriter()` object
     # out = cv2.VideoWriter('video_result.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 30, (frame_width, frame_height))
 
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    output = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width,  frame_height))
+
     # detect objects in each frame of the video
     while cap.isOpened():
         ret, frame = cap.read()
@@ -57,9 +61,10 @@ def video():
                 cv2.putText(img, text, (box[0], box[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 1,
                 color=(0, 0, 255), thickness=2)
 
-                height, width, nchannels = img.shape
                 image = img
+            output.write(img)
             # out.write(image)
+            height, width, nchannels = img.shape
             if height > 800 or width > 800:
                 image = cv2.resize(img, (width//2, height//2), interpolation = cv2.INTER_LINEAR)
                 cv2.imshow('Image', image)
@@ -71,6 +76,7 @@ def video():
         else:
             break   
     cap.release()
+    output.release()
     cv2.destroyAllWindows()
 
 
