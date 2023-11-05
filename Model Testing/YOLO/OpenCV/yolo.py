@@ -37,7 +37,7 @@ def imagen():
 
 def video():
     # capture the video
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     # get the video frames' width and height for proper saving of videos
     frame_width = int(cap.get(3))
     frame_height = int(cap.get(4))

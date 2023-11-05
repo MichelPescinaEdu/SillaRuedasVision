@@ -24,9 +24,9 @@ for camera in cameras:
             bboxes_pred = iou.load_bounding_boxes(pred_path)
             # Computes IoU of current image and saves results
             IoU_list, bboxes_inter = iou.get_IoU_all_predictions(bboxes_ground, bboxes_pred)
-            iou.save_IoU_data(IoU_list, IoU_path, 'a')
+            #iou.save_IoU_data(IoU_list, IoU_path, 'a')
 
-            #ground = bboxes_ground.to_dict('records')
-            #pred = bboxes_pred.to_dict('records')
-            #image_path = '../dataset_cuevas_redux/'+camera+'/'+'escena'+str(sceneID)+'_'+str(imageID)+'.jpg'
-            #iou.show_inter(ground, pred, bboxes_inter, image_path)
+            ground = bboxes_ground.to_dict('records')
+            pred = bboxes_pred.to_dict('records')
+            image_path = '../indoors_dataset/'+camera+'/'+'escena'+str(sceneID)+'_'+str(imageID)+'.jpg'
+            iou.show_inter(ground, pred, bboxes_inter, image_path)
